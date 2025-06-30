@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, type JSX } from "react";
 import Post from "../components/Post/Post";
 import { useGetPosts } from "../hooks/Posts/useGetPosts";
 import { CreatePost } from "../components/Post/CreatePost";
 import Pagination from "../components/Post/Pagination";
 import { useUser } from "../hooks/useUser";
 
-const Home: React.FC = () => {
+/**
+ * Componente principal da página Home.
+ *
+ * Exibe uma lista de posts paginados, permitindo ao usuário autenticado criar novos posts através de um modal.
+ *
+ * - Mostra um botão "Criar Post" apenas para usuários autenticados.
+ * - Exibe mensagens de carregamento ou erro conforme o estado da requisição dos posts.
+ * - Renderiza a lista de posts e a paginação baseada nos dados retornados.
+ *
+ * @component
+ * @returns {JSX.Element} A página Home com a lista de posts e funcionalidades de criação e paginação.
+ */
+const Home: React.FC = (): JSX.Element => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
   const { isAuthenticated } = useUser();

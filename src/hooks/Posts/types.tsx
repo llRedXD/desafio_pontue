@@ -1,12 +1,5 @@
 import { z } from "zod";
-
-export const UserSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  email: z.string().email(),
-  created_at: z.string(),
-  updated_at: z.string(),
-});
+import { UserSchema } from "../User/type";
 
 export const PostDataSchema = z.object({
   id: z.number(),
@@ -57,7 +50,7 @@ export const PostCreateOrUpdateSchema = z.object({
 });
 
 // Inferir tipos do Zod
-export type User = z.infer<typeof UserSchema>;
+
 export type PostData = z.infer<typeof PostDataSchema>;
 export type PostsResponse = z.infer<typeof PostsResponseSchema>;
 export type PostCreateOrUpdate = z.infer<typeof PostCreateOrUpdateSchema>;

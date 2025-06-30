@@ -1,5 +1,14 @@
 import { useUser } from "../useUser";
 
+/**
+ * Hook personalizado para gerenciar autenticação de usuário.
+ *
+ * Fornece informações e utilitários relacionados ao usuário autenticado,
+ * incluindo status de autenticação, permissões, validação de sessão,
+ * e manipulação do token de autenticação.
+ *
+ * @returns Um objeto com dados do usuário, status de autenticação, funções utilitárias e métodos de controle de sessão.
+ */
 export function useAuth() {
   const {
     user,

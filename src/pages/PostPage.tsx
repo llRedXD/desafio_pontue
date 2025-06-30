@@ -10,6 +10,19 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 const { useDeletePost } = await import("../hooks/Posts/useDeletePost");
 
+/**
+ * Página de visualização, edição e exclusão de um post específico.
+ *
+ * @param id - O identificador único do post a ser exibido.
+ *
+ * Esta página permite ao usuário visualizar os detalhes de um post, incluindo título, descrição, conteúdo,
+ * autor e data de criação. Oferece funcionalidades para editar e salvar alterações no post, bem como deletá-lo.
+ * O formulário utiliza validação com Zod e react-hook-form. O acesso à página é protegido por autenticação.
+ *
+ * - Exibe mensagens de carregamento e erro conforme o estado da requisição.
+ * - Permite alternar entre modos de visualização e edição.
+ * - Após salvar ou deletar, realiza navegação ou refetch conforme necessário.
+ */
 export function PostPage({ id }: { id: number }) {
   const post = useGetPost(id);
   const updatePost = usePutPost();

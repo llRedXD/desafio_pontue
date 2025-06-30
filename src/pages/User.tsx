@@ -5,6 +5,20 @@ import Post from "../components/Post/Post";
 import Pagination from "../components/Post/Pagination";
 import { CreatePost } from "../components/Post/CreatePost";
 
+/**
+ * Componente de página do usuário.
+ *
+ * Exibe os dados do usuário autenticado, incluindo nome, email e data de cadastro.
+ * Também lista os posts do usuário com paginação, permitindo criar novos posts através de um modal.
+ *
+ * Recursos:
+ * - Mostra informações do usuário logado.
+ * - Lista os posts do usuário com suporte a paginação.
+ * - Permite criar novos posts via modal.
+ * - Exibe mensagens de carregamento e erro durante a busca dos posts.
+ *
+ * @component
+ */
 export function User() {
   const { user } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
