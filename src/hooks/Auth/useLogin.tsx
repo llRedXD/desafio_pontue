@@ -9,17 +9,13 @@ interface Token {
   type: string;
   expires_at: string;
 }
-interface LoginResponse {
+export interface AuthenticatedUser {
   user: User;
   token: Token;
 }
 
-async function loginRequest(data: LoginFormData): Promise<LoginResponse> {
+async function loginRequest(data: LoginFormData): Promise<AuthenticatedUser> {
   const response = await projectApi.post("/auth/login", data);
-
-  if (!response) {
-    throw new Error("Login failed");
-  }
 
   return response.json();
 }
@@ -27,7 +23,7 @@ async function loginRequest(data: LoginFormData): Promise<LoginResponse> {
 export function useLogin() {
   const { login: loginUser } = useUser();
 
-  return useMutation<LoginResponse, Error, LoginFormData>({
+  return useMutation<AuthenticatedUser, Error, LoginFormData>({
     mutationFn: loginRequest,
     onSuccess: (data) => {
       // Salva a data de expiração do token se disponível

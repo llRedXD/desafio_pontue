@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import type { User } from "../../hooks/Posts/useGetPosts";
 import { UserContext, type UserContextType } from "./UserContext";
+import { useNavigate } from "react-router-dom";
 
 interface UserProviderProps {
   children: ReactNode;
@@ -9,6 +10,7 @@ interface UserProviderProps {
 export function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const nagivate = useNavigate();
 
   // Verifica se o usuário está autenticado
   const isAuthenticated = !!user;
@@ -45,6 +47,7 @@ export function UserProvider({ children }: UserProviderProps) {
     localStorage.removeItem("authToken");
     localStorage.removeItem("user");
     localStorage.removeItem("tokenExpiresAt");
+    nagivate("/"); // Redireciona para a página inicial após logout
   };
 
   // Função para atualizar dados do usuário

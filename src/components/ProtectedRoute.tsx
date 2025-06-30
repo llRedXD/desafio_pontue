@@ -38,6 +38,21 @@ export function ProtectedRoute({
           >
             Fazer Login
           </button>
+          <button
+            onClick={() => (window.location.href = "/register")}
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mt-2"
+          >
+            Registrar
+          </button>
+          <p className="text-sm text-gray-500 mt-4">
+            Ou volte para as postagens públicas.
+          </p>
+          <button
+            onClick={() => (window.location.href = "/")}
+            className="text-blue-500 hover:underline mt-2"
+          >
+            Ir para a página inicial
+          </button>
         </div>
       )
     );

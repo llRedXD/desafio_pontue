@@ -1,4 +1,5 @@
 import { Login } from "./Login";
+import { Register } from "./Register";
 
 interface ModalAuthProps {
   isOpen: boolean;
@@ -54,11 +55,9 @@ export function ModalAuth({
               </>
             ) : mode === "register" ? (
               <>
-                <h1 className="text-base font-semibold text-gray-900 mb-4">
-                  Registro
-                </h1>
+                <Register isOpen={isOpen} onClose={onClose} />
                 <a
-                  className="text-blue-500 hover:underline"
+                  className="text-blue-500 hover:underline mt-4 block"
                   onClick={() => {
                     if (changeMode) {
                       changeMode("login");

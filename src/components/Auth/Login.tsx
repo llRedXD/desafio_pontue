@@ -27,7 +27,7 @@ export function Login({ isOpen, onClose }: LoginProps) {
 
   if (!isOpen) return null;
   const onSubmit = (data: LoginFormData) => {
-    login.mutate(data, {
+    login.mutateAsync(data, {
       onSuccess: () => {
         onClose(); // Fecha o modal após login bem-sucedido
       },
@@ -36,13 +36,13 @@ export function Login({ isOpen, onClose }: LoginProps) {
 
   return (
     <>
-      <h3
-        className="text-base font-semibold text-gray-900 mb-4"
-        id="dialog-title"
-      >
-        Login
-      </h3>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <h3
+          className="text-base font-semibold text-gray-900 mb-4"
+          id="dialog-title"
+        >
+          Login
+        </h3>
         <div>
           <label
             htmlFor="email"
