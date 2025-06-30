@@ -26,9 +26,12 @@ export function Login({ isOpen, onClose }: LoginProps) {
   const login = useLogin();
 
   if (!isOpen) return null;
-
   const onSubmit = (data: LoginFormData) => {
-    login.mutateAsync(data);
+    login.mutate(data, {
+      onSuccess: () => {
+        onClose(); // Fecha o modal após login bem-sucedido
+      },
+    });
   };
 
   return (

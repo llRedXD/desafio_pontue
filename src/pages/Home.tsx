@@ -19,6 +19,7 @@ const Home: React.FC = () => {
         ) : (
           posts.data?.data.map((post) => (
             <Post
+              key={post.id}
               id={post.id}
               title={post.title}
               description={post.description}
