@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import type { User } from "../../hooks/useGetPosts";
+import type { User } from "../../hooks/Posts/useGetPosts";
 import { UserContext, type UserContextType } from "./UserContext";
 
 interface UserProviderProps {

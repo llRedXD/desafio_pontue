@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { projectApi } from "../api/projectApi";
-import type { LoginFormData } from "../components/Auth/Login";
-import type { User } from "./useGetPosts";
-import { useUser } from "./useUser";
+import { projectApi } from "../../api/projectApi";
+import type { LoginFormData } from "../../components/Auth/Login";
+import type { User } from "../Posts/useGetPosts";
+import { useUser } from "../useUser";
 
 interface Token {
   access_token: string;

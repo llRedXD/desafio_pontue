@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { User } from "../../hooks/useGetPosts";
+import type { User } from "../../hooks/Posts/useGetPosts";
 
 export interface UserContextType {
   user: User | null;

@@ -1,4 +1,4 @@
-import { useUser } from "./useUser";
+import { useUser } from "../useUser";
 
 export function useAuth() {
   const {

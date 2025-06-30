@@ -1,5 +1,5 @@
 import { ProtectedRoute } from "../components/ProtectedRoute";
-import { useGetPost } from "../hooks/useGetPost";
+import { useGetPost } from "../hooks/Posts/useGetPost";
 
 export function Post({ id }: { id: number }) {
   const post = useGetPost(id);

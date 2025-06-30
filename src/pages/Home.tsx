@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Post from "../components/Post/Post";
-import { useGetPosts } from "../hooks/useGetPosts";
+import { useGetPosts } from "../hooks/Posts/useGetPosts";
 
 const Home: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
