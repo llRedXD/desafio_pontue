@@ -48,3 +48,10 @@ export interface PostsResponse {
 export interface PostReponse {
   post: PostData;
 }
+
+export interface PostCreateOrUpdate {
+  title: string;
+  description?: string | null;
+  content?: string;
+  user_id?: number;
+}

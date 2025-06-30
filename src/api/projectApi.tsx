@@ -54,20 +54,6 @@ export async function makeRequest(
       throw new Error("Sessão expirada. Faça login novamente.");
     }
 
-    if (!response.ok) {
-      let errorMessage = "API request failed";
-
-      try {
-        const errorData = await response.json();
-        errorMessage = errorData.message || errorMessage;
-      } catch {
-        // Se não conseguir fazer parse do JSON, usa a mensagem padrão
-        errorMessage = `HTTP ${response.status}: ${response.statusText}`;
-      }
-
-      throw new Error(errorMessage);
-    }
-
     return response;
   } catch (error) {
     console.error("API request error:", error);

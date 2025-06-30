@@ -7,6 +7,11 @@ import type { AuthenticatedUser } from "./types";
 async function loginRequest(data: LoginFormData): Promise<AuthenticatedUser> {
   const response = await projectApi.post("/auth/login", data);
 
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Erro ao fazer login");
+  }
+
   return response.json();
 }
 

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { ProtectedRoute } from "../components/ProtectedRoute";
 import { useGetPost } from "../hooks/Posts/useGetPost";
+import { usePutPost } from "../hooks/Posts/usePutPost";
 // Supondo que exista esse hook:
 // import { useUpdatePost } from "../hooks/Posts/useUpdatePost";
 
 export function PostPage({ id }: { id: number }) {
   const post = useGetPost(id);
-  const updatePost = () => console.log("Update post function"); // useUpdatePost(id);
+  const updatePost = usePutPost();
   const [editMode, setEditMode] = useState(false);
 
   // Estados locais para os campos editáveis
@@ -26,9 +27,11 @@ export function PostPage({ id }: { id: number }) {
   const handleSave = async () => {
     await updatePost.mutateAsync({
       id,
-      title,
-      description,
-      content,
+      data: {
+        title,
+        description,
+        content,
+      },
     });
     setEditMode(false);
     // Opcional: refetch post
@@ -136,7 +139,11 @@ export function PostPage({ id }: { id: number }) {
                 <button
                   type="button"
                   className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded"
-                  onClick={() => setEditMode(true)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setEditMode(true);
+                  }}
                 >
                   Editar
                 </button>
@@ -145,7 +152,7 @@ export function PostPage({ id }: { id: number }) {
                   <button
                     type="submit"
                     className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
-                    disabled={updatePost.isLoading}
+                    disabled={updatePost.isPending}
                   >
                     Salvar
                   </button>

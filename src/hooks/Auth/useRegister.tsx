@@ -6,18 +6,16 @@ import type { AuthenticatedUser } from "./types";
 async function register(data: RegisterFormData): Promise<AuthenticatedUser> {
   const response = await projectApi.post("/auth/register", data);
 
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Erro ao registrar usuário");
+  }
+
   return response.json();
 }
 
 export function useRegister() {
   return useMutation<AuthenticatedUser, Error, RegisterFormData>({
     mutationFn: register,
-    onSuccess: (data) => {
-      // Aqui você pode lidar com o sucesso do registro, como redirecionar ou mostrar uma mensagem
-      console.log("Registro bem-sucedido:", data);
-    },
-    onError: (error) => {
-      console.error("Erro ao registrar:", error);
-    },
   });
 }

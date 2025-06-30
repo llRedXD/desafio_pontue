@@ -17,8 +17,5 @@ export function useLogout() {
       logoutUser(); // Chama a função de logout do contexto
       navigate("/"); // Redireciona para a página inicial após logout
     },
-    onError: (error) => {
-      console.error("Logout error:", error);
-    },
   });
 }
