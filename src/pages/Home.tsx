@@ -26,7 +26,7 @@ const Home: React.FC = (): JSX.Element => {
   return (
     <>
       <main className="p-4">
-        {localStorage.getItem("token") && (
+        {isAuthenticated && (
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold">Lista de Posts</h1>
             {isAuthenticated && (
