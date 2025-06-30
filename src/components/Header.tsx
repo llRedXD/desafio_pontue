@@ -18,7 +18,9 @@ export function Header() {
     <>
       <header className="bg-gray-800 text-white flex items-center justify-between px-4 py-3 fixed top-0 left-0 w-full z-50 shadow">
         <div className="flex items-center">
-          <h1 className="text-xl font-bold">Blog</h1>
+          <h1 className="text-xl font-bold">
+            <a href="/">Blog</a>
+          </h1>
         </div>
         <nav className="flex flex-col md:flex-row items-center gap-2">
           {isAuthenticated ? (

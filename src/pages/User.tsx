@@ -42,14 +42,18 @@ export function User() {
           <>
             <h1 className="text-2xl font-bold mb-4">Meus Posts</h1>
             <div className="max-h-[70vh] px-4 overflow-auto">
-              {posts.data?.data.map((post) => (
-                <Post
-                  key={post.id}
-                  id={post.id}
-                  title={post.title}
-                  description={post.description}
-                />
-              ))}
+              {posts.data?.data.length === 0 ? (
+                <p className="text-gray-500">Nenhum post encontrado.</p>
+              ) : (
+                posts.data?.data.map((post) => (
+                  <Post
+                    key={post.id}
+                    id={post.id}
+                    title={post.title}
+                    description={post.description}
+                  />
+                ))
+              )}
             </div>
 
             {/* Paginação */}
@@ -102,7 +106,7 @@ export function User() {
             )}
 
             {/* Informações da paginação */}
-            {posts.data?.meta && (
+            {posts.data?.meta && posts.data.meta.total > 0 && (
               <div className="flex justify-center items-center mt-4 text-sm text-gray-600">
                 <p>
                   Mostrando {posts.data.meta.from} a {posts.data.meta.to} de{" "}
