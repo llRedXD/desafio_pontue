@@ -1,37 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ProtectedRoute } from "../components/ProtectedRoute";
 import { useGetPost } from "../hooks/Posts/useGetPost";
 import { usePutPost } from "../hooks/Posts/usePutPost";
-// Supondo que exista esse hook:
-// import { useUpdatePost } from "../hooks/Posts/useUpdatePost";
+import { useForm } from "react-hook-form";
+import {
+  PostCreateOrUpdateSchema,
+  type PostCreateOrUpdate,
+} from "../hooks/Posts/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+const { useDeletePost } = await import("../hooks/Posts/useDeletePost");
 
 export function PostPage({ id }: { id: number }) {
   const post = useGetPost(id);
   const updatePost = usePutPost();
+  const deletePost = useDeletePost();
   const [editMode, setEditMode] = useState(false);
+  const { register, handleSubmit } = useForm<PostCreateOrUpdate>({
+    resolver: zodResolver(PostCreateOrUpdateSchema),
+  });
 
-  // Estados locais para os campos editáveis
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [content, setContent] = useState("");
-
-  // Preenche os campos quando o post é carregado
-  useEffect(() => {
-    if (post.data?.post) {
-      setTitle(post.data.post.title || "");
-      setDescription(post.data.post.description || "");
-      setContent(post.data.post.content || "");
-    }
-  }, [post.data?.post]);
-
-  const handleSave = async () => {
+  const handleSave = async (data: PostCreateOrUpdate) => {
     await updatePost.mutateAsync({
       id,
-      data: {
-        title,
-        description,
-        content,
-      },
+      data,
     });
     setEditMode(false);
     // Opcional: refetch post
@@ -59,10 +50,7 @@ export function PostPage({ id }: { id: number }) {
         ) : (
           <form
             className="bg-white shadow-md rounded-lg p-6 mb-4"
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (editMode) handleSave();
-            }}
+            onSubmit={handleSubmit(handleSave)}
           >
             <div className="flex flex-col col-span-1">
               <div className="mb-4">
@@ -76,8 +64,8 @@ export function PostPage({ id }: { id: number }) {
                   id="title"
                   className="text-2xl font-bold mb-2 border-b border-gray-300 focus:outline-none focus:border-blue-500 w-full"
                   type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  value={post.data?.post.title || ""}
+                  {...register("title")}
                   disabled={!editMode}
                 />
                 <div className="flex justify-between items-center mt-2">
@@ -114,8 +102,8 @@ export function PostPage({ id }: { id: number }) {
               <textarea
                 id="description"
                 className="text-gray-700 mb-4 border rounded p-2 resize-none focus:outline-none focus:border-blue-500"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                {...register("description")}
+                value={post.data?.post.description || ""}
                 rows={2}
                 disabled={!editMode}
               />
@@ -127,9 +115,9 @@ export function PostPage({ id }: { id: number }) {
               </label>
               <textarea
                 id="content"
+                value={post.data?.post.content || ""}
                 className="prose border rounded p-2 resize-y focus:outline-none focus:border-blue-500"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
+                {...register("content")}
                 rows={8}
                 disabled={!editMode}
               />
@@ -161,16 +149,27 @@ export function PostPage({ id }: { id: number }) {
                     className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded"
                     onClick={() => {
                       setEditMode(false);
-                      // Restaura os valores originais
-                      setTitle(post.data?.post.title || "");
-                      setDescription(post.data?.post.description || "");
-                      setContent(post.data?.post.content || "");
                     }}
                   >
                     Cancelar
                   </button>
                 </>
               )}
+              <button
+                type="button"
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+                onClick={async () => {
+                  if (
+                    window.confirm("Tem certeza que deseja deletar este post?")
+                  ) {
+                    await deletePost.mutateAsync(id);
+                    window.location.href = "/";
+                  }
+                }}
+                disabled={editMode}
+              >
+                Deletar
+              </button>
             </div>
           </form>
         )}

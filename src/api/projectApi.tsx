@@ -41,19 +41,6 @@ export async function makeRequest(
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
 
-    // Se receber 401 (Unauthorized), o token pode ter expirado
-    if (response.status === 401 && requiresAuth) {
-      // Limpa os dados de autenticação
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("user");
-      localStorage.removeItem("tokenExpiresAt");
-
-      // Dispara um evento customizado para informar que o usuário foi deslogado
-      window.dispatchEvent(new CustomEvent("auth-expired"));
-
-      throw new Error("Sessão expirada. Faça login novamente.");
-    }
-
     return response;
   } catch (error) {
     console.error("API request error:", error);

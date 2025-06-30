@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../hooks/Auth/useAuth";
+import { ModalAuth } from "./Auth/ModalAuth";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -13,6 +14,8 @@ export function ProtectedRoute({
   requireAuth = true,
 }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading } = useAuth();
+  const [showModal, setShowModal] = useState(false);
+  const [modeAuth, setModeAuth] = useState<"login" | "register">("login");
 
   // Mostra loading enquanto verifica autenticação
   if (isLoading) {
@@ -33,17 +36,28 @@ export function ProtectedRoute({
             Você precisa estar logado para acessar esta página.
           </p>
           <button
-            onClick={() => window.location.reload()}
+            onClick={() => {
+              setShowModal(true);
+              setModeAuth("login");
+            }}
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
           >
             Fazer Login
           </button>
           <button
-            onClick={() => (window.location.href = "/register")}
+            onClick={() => {
+              setShowModal(true);
+              setModeAuth("register");
+            }}
             className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mt-2"
           >
             Registrar
           </button>
+          <ModalAuth
+            isOpen={showModal}
+            onClose={() => setShowModal(false)}
+            mode={modeAuth}
+          />
           <p className="text-sm text-gray-500 mt-4">
             Ou volte para as postagens públicas.
           </p>

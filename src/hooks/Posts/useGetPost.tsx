@@ -5,6 +5,10 @@ import { projectApi } from "../../api/projectApi";
 async function getPost(id: number): Promise<PostReponse> {
   const response = await projectApi.get(`/posts/${id}`, true);
 
+  if (response.status === 404) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Post não encontrado");
+  }
   return response.json();
 }
 

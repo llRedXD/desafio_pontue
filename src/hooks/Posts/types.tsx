@@ -1,57 +1,65 @@
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  created_at: string;
-  updated_at: string;
-}
+import { z } from "zod";
 
-export interface PostData {
-  id: number;
-  title: string;
-  description: string | null;
-  content?: string;
-  user?: User;
-  created_at?: string;
-  updated_at?: string;
-}
+export const UserSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  email: z.string().email(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
 
-interface Links {
-  first: string;
-  last: string;
-  prev: string | null;
-  next: string | null;
-}
+export const PostDataSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  description: z.string().nullable(),
+  content: z.string().optional(),
+  user: UserSchema.optional(),
+  created_at: z.string().optional(),
+  updated_at: z.string().optional(),
+});
 
-interface MetaLink {
-  url: string | null;
-  label: string;
-  active: boolean;
-}
+export const PostReponseSchema = z.object({
+  post: PostDataSchema,
+});
 
-interface Meta {
-  current_page: number;
-  from: number;
-  last_page: number;
-  links: MetaLink[];
-  path: string;
-  per_page: number;
-  to: number;
-  total: number;
-}
+export const MetaSchema = z.object({
+  current_page: z.number(),
+  from: z.number(),
+  last_page: z.number(),
+  links: z.array(
+    z.object({
+      url: z.string().nullable(),
+      label: z.string(),
+      active: z.boolean(),
+    })
+  ),
+  path: z.string(),
+  per_page: z.number(),
+  to: z.number(),
+  total: z.number(),
+});
 
-export interface PostsResponse {
-  data: PostData[];
-  links: Links;
-  meta: Meta;
-}
-export interface PostReponse {
-  post: PostData;
-}
+export const PostsResponseSchema = z.object({
+  data: z.array(PostDataSchema),
+  links: z.object({
+    first: z.string(),
+    last: z.string(),
+    prev: z.string().nullable(),
+    next: z.string().nullable(),
+  }),
+  meta: MetaSchema,
+});
 
-export interface PostCreateOrUpdate {
-  title: string;
-  description?: string | null;
-  content?: string;
-  user_id?: number;
-}
+export const PostCreateOrUpdateSchema = z.object({
+  title: z.string().min(1, "Título é obrigatório"),
+  description: z.string().nullable().optional(),
+  content: z.string().optional(),
+});
+
+// Inferir tipos do Zod
+export type User = z.infer<typeof UserSchema>;
+export type PostData = z.infer<typeof PostDataSchema>;
+export type PostsResponse = z.infer<typeof PostsResponseSchema>;
+export type PostCreateOrUpdate = z.infer<typeof PostCreateOrUpdateSchema>;
+export type PostReponse = z.infer<typeof PostReponseSchema>;
+export type Meta = z.infer<typeof MetaSchema>;
