@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { projectApi } from "../../api/projectApi";
 import type { RegisterFormData } from "../../components/Auth/Register";
-import type { AuthenticatedUser } from "./useLogin";
+import type { AuthenticatedUser } from "./types";
 
 async function register(data: RegisterFormData): Promise<AuthenticatedUser> {
   const response = await projectApi.post("/auth/register", data);

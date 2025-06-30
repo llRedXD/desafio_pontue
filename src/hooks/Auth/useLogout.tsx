@@ -3,9 +3,7 @@ import { projectApi } from "../../api/projectApi";
 import { useUser } from "../useUser";
 
 async function logout(): Promise<void> {
-  const response = await projectApi.post("/auth/logout", null, true);
-
-  return response.json();
+  await projectApi.post("/auth/logout", null, true);
 }
 
 export function useLogout() {

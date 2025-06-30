@@ -18,14 +18,16 @@ const Home: React.FC = () => {
           </div>
         ) : (
           <>
-            {posts.data?.data.map((post) => (
-              <Post
-                key={post.id}
-                id={post.id}
-                title={post.title}
-                description={post.description}
-              />
-            ))}
+            <div className="max-h-[70vh] px-4 overflow-auto">
+              {posts.data?.data.map((post) => (
+                <Post
+                  key={post.id}
+                  id={post.id}
+                  title={post.title}
+                  description={post.description}
+                />
+              ))}
+            </div>
 
             {/* Paginação */}
             {posts.data?.meta && posts.data.meta.last_page > 1 && (

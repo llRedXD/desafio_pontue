@@ -1,18 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { projectApi } from "../../api/projectApi";
 import type { LoginFormData } from "../../components/Auth/Login";
-import type { User } from "../Posts/useGetPosts";
 import { useUser } from "../useUser";
-
-interface Token {
-  access_token: string;
-  type: string;
-  expires_at: string;
-}
-export interface AuthenticatedUser {
-  user: User;
-  token: Token;
-}
+import type { AuthenticatedUser } from "./types";
 
 async function loginRequest(data: LoginFormData): Promise<AuthenticatedUser> {
   const response = await projectApi.post("/auth/login", data);

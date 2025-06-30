@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useUser } from "../hooks/useUser";
 import { ModalAuth } from "./Auth/ModalAuth";
+import { useLogout } from "../hooks/Auth/useLogout";
 
 export function Header() {
   const [showModal, setShowModal] = useState(false);
   const [modeAuth, setModeAuth] = useState<"login" | "register">("login");
-  const { user, logout, isAuthenticated } = useUser();
+  const { user, isAuthenticated } = useUser();
+  const logout = useLogout();
 
   const handleLogout = () => {
-    logout();
+    logout.mutateAsync();
   };
 
   return (
