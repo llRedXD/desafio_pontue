@@ -2,7 +2,7 @@ import { Outlet, Routes, Route } from "react-router-dom";
 
 import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
-import { Post } from "../pages/Post";
+import { PostPage } from "../pages/PostPage";
 import { User } from "../pages/User";
 
 export default function Router() {
@@ -13,7 +13,7 @@ export default function Router() {
         <Route
           path="posts/:id"
           element={
-            <Post id={Number(window.location.pathname.split("/").pop())} />
+            <PostPage id={Number(window.location.pathname.split("/").pop())} />
           }
         />
         <Route path="user" element={<User />} />
