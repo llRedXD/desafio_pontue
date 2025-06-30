@@ -47,7 +47,7 @@ async function getPosts(
  */
 export function useGetPosts(
   page: number = 1,
-  per_page: number = 15,
+  per_page: number = 7,
   only_me: number = 0
 ) {
   return useQuery({
