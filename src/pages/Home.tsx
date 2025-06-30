@@ -3,27 +3,36 @@ import Post from "../components/Post/Post";
 import { useGetPosts } from "../hooks/Posts/useGetPosts";
 import { CreatePost } from "../components/Post/CreatePost";
 import Pagination from "../components/Post/Pagination";
+import { useUser } from "../hooks/useUser";
 
 const Home: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
+  const { isAuthenticated } = useUser();
+
   const posts = useGetPosts(currentPage);
   return (
     <>
       <main className="p-4">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">Lista de Posts</h1>
-          <button
-            onClick={() => setShowCreatePostModal(true)}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded"
-          >
-            Criar Post
-          </button>
-          <CreatePost
-            isOpen={showCreatePostModal}
-            onClose={() => setShowCreatePostModal(false)}
-          />
-        </div>
+        {localStorage.getItem("token") && (
+          <div className="flex justify-between items-center mb-4">
+            <h1 className="text-2xl font-bold">Lista de Posts</h1>
+            {isAuthenticated && (
+              <>
+                <button
+                  onClick={() => setShowCreatePostModal(true)}
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded"
+                >
+                  Criar Post
+                </button>
+                <CreatePost
+                  isOpen={showCreatePostModal}
+                  onClose={() => setShowCreatePostModal(false)}
+                />
+              </>
+            )}
+          </div>
+        )}
         {posts.isLoading ? (
           <div className="flex justify-center items-center h-screen">
             <p>Carregando posts...</p>
