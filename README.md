@@ -176,4 +176,15 @@ npm run lint
 
 ## 📄 Licença
 
+## Contas para Teste
+
+vendas@pontue.com.br
+compras@pontue.com.br
+desenvolvimento@pontue.com.br
+claudio@pontue.com.br
+
+### Senha
+
+Desafio123
+
 Este projeto foi desenvolvido como parte de um desafio técnico.
