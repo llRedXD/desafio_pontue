@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-interface User {
+export interface User {
   id: number;
   name: string;
   email: string;
