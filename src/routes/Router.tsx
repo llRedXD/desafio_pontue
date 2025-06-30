@@ -16,9 +16,7 @@ export default function Router() {
           }
         />
         <Route path="*" element={<NotFound />} />
-        {/* Add more routes here as needed */}
       </Route>
-      {/* You can add more routes for other pages or components here */}
     </Routes>
   );
 }
