@@ -8,7 +8,8 @@ async function getPosts(
   only_me: number = 0
 ): Promise<PostsResponse> {
   const response = await projectApi.get(
-    `/posts?page=${page}&per_page=${per_page}&only_me=${only_me}`
+    `/posts?page=${page}&per_page=${per_page}&only_me=${only_me}`,
+    only_me > 0
   );
 
   return response.json();

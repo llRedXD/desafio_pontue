@@ -1,5 +1,5 @@
 import React from "react";
-import type { PostData } from "../../hooks/Posts/useGetPosts";
+import type { PostData } from "../../hooks/Posts/types";
 
 const Post: React.FC<PostData> = ({ id, title, description }) => {
   return (

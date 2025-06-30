@@ -6,6 +6,7 @@ import { useLogout } from "../hooks/Auth/useLogout";
 export function Header() {
   const [showModal, setShowModal] = useState(false);
   const [modeAuth, setModeAuth] = useState<"login" | "register">("login");
+  const [showUserInfo, setShowUserInfo] = useState(false);
   const { user, isAuthenticated } = useUser();
   const logout = useLogout();
 
@@ -23,9 +24,58 @@ export function Header() {
           {isAuthenticated ? (
             // Usuário autenticado
             <>
-              <span className="text-sm text-gray-300">
-                Olá, {user?.name || user?.email}
-              </span>
+              <div className="relative">
+                <button
+                  className="text-sm text-gray-300 focus:outline-none flex items-center gap-1 hover:text-white transition-colors"
+                  onClick={() => setShowUserInfo((prev) => !prev)}
+                  type="button"
+                  aria-haspopup="true"
+                  aria-expanded={showUserInfo}
+                  title="Ver informações do usuário"
+                >
+                  Olá, {user?.name || user?.email}
+                  <svg
+                    className={`w-4 h-4 transition-transform ${
+                      showUserInfo ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                {showUserInfo && (
+                  <div className="absolute right-0 mt-4 w-72 bg-white text-gray-800 rounded-lg shadow-2xl z-50 p-6 space-y-4">
+                    <div className="mb-4">
+                      <div className="font-semibold text-lg">
+                        {user?.name || "Usuário"}
+                      </div>
+                      <div className="text-sm text-gray-500">{user?.email}</div>
+                    </div>
+                    <button
+                      className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg transition-colors mb-3"
+                      onClick={() => {
+                        window.location.href = `/user`;
+                        setShowUserInfo(false);
+                      }}
+                    >
+                      Meus Dados e Posts
+                    </button>
+                    <button
+                      className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-3 rounded-lg transition-colors"
+                      onClick={() => setShowUserInfo(false)}
+                    >
+                      Fechar
+                    </button>
+                  </div>
+                )}
+              </div>
               <button
                 className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded transition-colors"
                 onClick={handleLogout}
