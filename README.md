@@ -177,15 +177,3 @@ npm run lint
 ## 📄 Licença
 
 Este projeto foi desenvolvido como parte de um desafio técnico.
-
-## 🤝 Contribuições
-
-Contribuições são bem-vindas! Sinta-se à vontade para:
-
-- Reportar bugs
-- Sugerir melhorias
-- Enviar pull requests
-
----
-
-**Desenvolvido com ❤️ para o Desafio Pontue**
