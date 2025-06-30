@@ -22,8 +22,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen min-w-screen flex flex-col">
-      <header className="bg-gray-800 text-white flex items-center justify-between px-4 py-3">
+    <div className="min-h-screen  flex flex-col">
+      <header className="bg-gray-800 text-white flex items-center justify-between px-4 py-3 fixed top-0 left-0 w-full z-50 shadow">
         <div className="flex items-center">
           <h1 className="text-xl font-bold">Blog</h1>
         </div>
@@ -57,15 +57,14 @@ function App() {
           )}
         </nav>
       </header>
-
+      <div className="h-20" /> {/* Espaço para compensar o header fixo */}
       <Login isOpen={showLogin} onClose={() => setShowLogin(false)} />
       <Router />
-
-      <footer className="bg-gray-800 text-white text-center p-4 fixed bottom-0 w-full">
+      {/* <footer className="bg-gray-800 text-white text-center p-4 fixed bottom-0 w-full">
         <p>
           &copy; {new Date().getFullYear()} Blog. Todos os direitos reservados.
         </p>
-      </footer>
+      </footer> */}
     </div>
   );
 }

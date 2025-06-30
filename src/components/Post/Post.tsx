@@ -6,7 +6,7 @@ const Post: React.FC<PostData> = ({ id, title, description }) => {
     <a href={`/posts/${id}`} className=" text-black">
       <div
         key={id}
-        className="bg-white shadow-md rounded-lg p-6 mb-4 transition-transform duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50"
+        className="bg-white shadow-md rounded-lg p-6 mb-2 transition-transform duration-300 hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50"
       >
         <h2 className="text-xl font-bold mb-2 transition-colors duration-300 ">
           {title}
