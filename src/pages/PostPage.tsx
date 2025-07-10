@@ -77,7 +77,8 @@ export function PostPage({ id }: { id: number }) {
                   id="title"
                   className="text-2xl font-bold mb-2 border-b border-gray-300 focus:outline-none focus:border-blue-500 w-full"
                   type="text"
-                  value={post.data?.post.title || ""}
+                  // value={post.data?.post.title || ""}
+                  defaultValue={post.data?.post.title || ""}
                   {...register("title")}
                   disabled={!editMode}
                 />
@@ -116,7 +117,8 @@ export function PostPage({ id }: { id: number }) {
                 id="description"
                 className="text-gray-700 mb-4 border rounded p-2 resize-none focus:outline-none focus:border-blue-500"
                 {...register("description")}
-                value={post.data?.post.description || ""}
+                // value={post.data?.post.description || ""}
+                defaultValue={post.data?.post.description || ""}
                 rows={2}
                 disabled={!editMode}
               />
@@ -128,7 +130,8 @@ export function PostPage({ id }: { id: number }) {
               </label>
               <textarea
                 id="content"
-                value={post.data?.post.content || ""}
+                // value={post.data?.post.content || ""}
+                defaultValue={post.data?.post.content || ""}
                 className="prose border rounded p-2 resize-y focus:outline-none focus:border-blue-500"
                 {...register("content")}
                 rows={8}
